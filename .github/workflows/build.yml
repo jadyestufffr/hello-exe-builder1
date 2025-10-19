@@ -1,1 +1,26 @@
+name: Build Windows EXE
+
+on:
+  workflow_dispatch:  # allows manual trigger
+  push:
+    branches: [ main ]
+
+jobs:
+  build:
+    runs-on: windows-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Compile hello.cpp
+        run: |
+          g++ hello.cpp -o hello.exe
+          dir
+
+      - name: Upload EXE
+        uses: actions/upload-artifact@v4
+        with:
+          name: hello-world-exe
+          path: hello.exe
 
